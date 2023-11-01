@@ -1,4 +1,4 @@
-from re import split
+from re import split, sub
 import colorama
 from mtranslate import translate
 from spacy import load
@@ -30,6 +30,8 @@ def print_word_details(translations):
 
 def analyse_paragraph(german_text):
     for sentence in split(r'(?<=[.!?])\s', german_text):
+        if sentence.startswith(' '):
+            sentence = sentence.lstrip()
         print('\n{}\n{}\n{}\n'.format(
             sentence,
             translate(sentence, 'en', 'de'),
@@ -39,8 +41,17 @@ def analyse_paragraph(german_text):
     colorama.deinit()
 
 
-analyse_paragraph(
-    ""
-    "Das ist ein Beispieltext für die Demonstration der Wortarten. Das ist der zweite Satz! Und hier kommt der dritte Satz?"
-    ""
-)
+def read_german_text_from_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as input_file:
+        german_text = input_file.read()
+        german_text = sub(r'\n', '', german_text)
+    return german_text
+
+
+def main():
+    analyse_paragraph(read_german_text_from_file('in.txt'))
+    colorama.deinit()
+
+
+if __name__ == "__main__":
+    main()
