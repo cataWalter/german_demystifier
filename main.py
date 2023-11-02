@@ -1,10 +1,7 @@
 from re import split, sub
-import colorama
 from mtranslate import translate
 from spacy import load
 from mapping import pos_mapping, tense_mapping, number_form_mapping, number_mapping, case_mapping, gender_mapping
-
-colorama.init()
 
 
 def parse_german_text(text):
@@ -17,40 +14,70 @@ def parse_german_text(text):
             for token in nlp(text)]
 
 
-def print_word_details(translations):
+def format_colored_text(text, color):
+    return f'<span style="color:{color}">{text}</span>'
+
+
+def get_word_details(translations):
+    translated_details = []
     for word, pos, case, gender, number, tense, number_form, english_translation, italian_translation in translations:
         if pos != "PUNCT":
-            pos_info = pos_mapping.get(pos, (pos, colorama.Fore.RESET))
-            print(
-                f'{pos_info[1]}{word}{colorama.Fore.RESET},'
-                f' {pos_info[1]}{pos_info[0]}{colorama.Fore.RESET},'
-                f' {pos_info[1]}{", ".join(filter(None, [tense_mapping.get(tense[0], tense[0]) if pos in {"VERB", "AUX"} and tense else "", f"{number_form_mapping.get(number_form[0], number_form[0])} Person" if pos in {"VERB", "AUX"} and number_form else "", number_mapping.get(number[0], number[0]) if number else "", case_mapping.get(case[0], case[0]) if case else "", gender_mapping.get(gender[0], gender[0]) if gender else ""]))}{colorama.Fore.RESET}'
-                f'{f"({english_translation.lower()}, {italian_translation.lower()})" if english_translation and italian_translation else ""}')
+            pos_info = pos_mapping.get(pos)
+            grammatical_details = [pos_info[0]]
+            if pos in {"VERB", "AUX"} and tense:
+                grammatical_details.append(tense_mapping.get(tense[0]))
+            if pos in {"VERB", "AUX"} and number_form:
+                grammatical_details.append(f"{number_form_mapping.get(number_form[0])} Person")
+            if number:
+                grammatical_details.append(number_mapping.get(number[0]))
+            if case:
+                grammatical_details.append(case_mapping.get(case[0]))
+            if gender:
+                grammatical_details.append(gender_mapping.get(gender[0]))
+            grammatical_details_str = ", ".join(grammatical_details)
+            translated_details.append(format_colored_text(
+                f'{word}:'
+                f' {grammatical_details_str},'
+                f' ({english_translation.lower()},'
+                f' {italian_translation.lower()})',
+                pos_info[1])
+            )
+    return "\n".join(translated_details)
 
 
-def analyse_paragraph(german_text):
+def create_output_string(sentence):
+    if sentence.startswith(' '):
+        sentence = sentence.lstrip()
+    output_string = (f"\n{sentence}\n"
+                     f"{translate(sentence, 'en', 'de')}\n"
+                     f"{translate(sentence, 'it', 'de')}\n\n"
+                     f"{get_word_details(parse_german_text(sentence))}\n")
+    print(output_string)
+    return output_string
+
+
+def analyze_paragraph(german_text):
+    result = ""
     for sentence in split(r'(?<=[.!?])\s', german_text):
-        if sentence.startswith(' '):
-            sentence = sentence.lstrip()
-        print('\n{}\n{}\n{}\n'.format(
-            sentence,
-            translate(sentence, 'en', 'de'),
-            translate(sentence, 'it', 'de')
-        ))
-        print_word_details(parse_german_text(sentence))
-    colorama.deinit()
+        result += create_output_string(sentence)
+    return result
 
 
-def read_german_text_from_file(file_path):
+def read_text_from_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as input_file:
-        german_text = input_file.read()
-        german_text = sub(r'\n', '', german_text)
-    return german_text
+        return sub(r'\n', '', input_file.read())
+
+
+def write_to_file(file_path, result):
+    with open(file_path, "w", encoding="utf-8") as output_file:
+        output_file.write(result)
 
 
 def main():
-    analyse_paragraph(read_german_text_from_file('in.txt'))
-    colorama.deinit()
+    result = analyze_paragraph(read_text_from_file('in.txt'))
+    write_to_file_enabled = True
+    if write_to_file_enabled:
+        write_to_file("out.md", result)
 
 
 if __name__ == "__main__":

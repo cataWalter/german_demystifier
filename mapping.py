@@ -1,24 +1,23 @@
-import colorama
-
 pos_mapping = {
-    "ADJ": ("Adjective", colorama.Fore.GREEN),
-    "ADP": ("Preposition", colorama.Fore.YELLOW),
-    "ADV": ("Adverb", colorama.Fore.CYAN),
-    "AUX": ("Verb", colorama.Fore.GREEN),
-    "CCONJ": ("Coordinating conjunction", colorama.Fore.BLUE),
-    "DET": ("Determiner", colorama.Fore.LIGHTRED_EX),
-    "INTJ": ("Interjection", colorama.Fore.WHITE),
-    "NOUN": ("Noun", colorama.Fore.BLUE),
-    "NUM": ("Numeral", colorama.Fore.LIGHTGREEN_EX),
-    "PART": ("Particle", colorama.Fore.LIGHTYELLOW_EX),
-    "PRON": ("Pronoun", colorama.Fore.LIGHTCYAN_EX),
-    "PROPN": ("Proper noun", colorama.Fore.LIGHTBLUE_EX),
-    "PUNCT": ("Punctuation", colorama.Fore.RED),
-    "SCONJ": ("Subordinating conjunction", colorama.Fore.LIGHTWHITE_EX),
-    "SYM": ("Symbol", colorama.Fore.YELLOW),
-    "VERB": ("Verb", colorama.Fore.GREEN),
-    "X": ("Other", colorama.Fore.RESET)
+    "ADJ": ("Adjective", "purple"),
+    "ADP": ("Preposition", "teal"),
+    "ADV": ("Adverb", "orange"),
+    "AUX": ("Verb", "olive"),
+    "CCONJ": ("Coordinating conjunction", "maroon"),
+    "DET": ("Determiner", "navy"),
+    "INTJ": ("Interjection", "lime"),
+    "NOUN": ("Noun", "silver"),
+    "NUM": ("Numeral", "fuchsia"),
+    "PART": ("Particle", "aqua"),
+    "PRON": ("Pronoun", "purple"),
+    "PROPN": ("Proper noun", "teal"),
+    "PUNCT": ("Punctuation", "red"),
+    "SCONJ": ("Subordinating conjunction", "maroon"),
+    "SYM": ("Symbol", "yellow"),
+    "VERB": ("Verb", "olive"),
+    "X": ("Other", "black")
 }
+
 case_mapping = {
     "Nom": "Nominative",
     "Gen": "Genitive",
