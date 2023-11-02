@@ -63,7 +63,7 @@ def analyze_paragraph(german_text):
 
 def main():
     result = analyze_paragraph(utils.io.read_text_from_file('in/in.txt'))
-    utils.io.write("out/out.md", result, write_enabled=False)
+    utils.io.write("out/out.md", result, write_enabled=True)
 
 
 main()

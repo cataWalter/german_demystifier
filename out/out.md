@@ -365,7 +365,7 @@ Le spiegai le lamentele di mia madre riguardo alla quota di eredità trattenuta;
 <span style="color:orange">gut: Adverb, (good, bene)</span>
 <span style="color:olive">gehen: Verb, (go, andare)</span>
 
-Undich habe, mein Lieber, wieder bei diesem kleinen Geschäft gefunden,daß Mißverständnisse und Trägheit vielleicht mehr Irrungen in der Weltmachen als List und Bosheit.
+Undich habe, mein Lieber, wieder bei diesem kleinen Geschäft gefunden,adaß Mißverständnisse und Trägheit vielleicht mehr Irrungen in der Weltmachen als List und Bosheit.
 And, my dear, I have found again in this little business that misunderstandings and indolence perhaps cause more errors in the world than cunning and malice.
 E, mio ​​caro, ho ritrovato in questa piccola faccenda che le incomprensioni e l'indolenza causano forse più errori nel mondo che l'astuzia e la malizia.
 
@@ -379,7 +379,7 @@ E, mio ​​caro, ho ritrovato in questa piccola faccenda che le incomprensioni
 <span style="color:purple">kleinen: Adjective, Singular, Dative, Neuter, (small, piccolo)</span>
 <span style="color:silver">Geschäft: Noun, Singular, Dative, Neuter, (business, attività commerciale)</span>
 <span style="color:olive">gefunden: Verb, (found, trovato)</span>
-<span style="color:maroon">daß: Subordinating conjunction, (that, quello)</span>
+<span style="color:olive">adaß: Verb, Present, None Person, Plural, (adass, che schifo)</span>
 <span style="color:silver">Mißverständnisse: Noun, Plural, Nominative, Masculine, (misunderstandings, incomprensioni)</span>
 <span style="color:maroon">und: Coordinating conjunction, (and, e)</span>
 <span style="color:silver">Trägheit: Noun, Singular, Nominative, Feminine, (inertia, inerzia)</span>

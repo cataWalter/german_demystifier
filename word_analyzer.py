@@ -1,19 +1,22 @@
 import utils.io
 import collections
-import tabulate
 import re
 import mtranslate
 
 
 def translate_word(word, language, count):
     if count <= 50:
-        return ""
+        return "", ""
     elif language == 'english':
-        return mtranslate.translate(word, 'en', 'de').lower()
+        english_translation = mtranslate.translate(word, 'en', 'de').lower()
+        italian_translation = mtranslate.translate(word, 'it', 'de').lower()
+        return english_translation, italian_translation
     elif language == 'italian':
-        return mtranslate.translate(word, 'it', 'de').lower()
+        english_translation = mtranslate.translate(word, 'en', 'de').lower()
+        italian_translation = mtranslate.translate(word, 'it', 'de').lower()
+        return english_translation, italian_translation
     else:
-        return word
+        return "", ""
 
 
 def main():
@@ -21,17 +24,20 @@ def main():
     word_counts = collections.Counter(re.findall(r'\b[a-zA-Z]+\b', text.lower()))
     total_words = sum(word_counts.values())
 
-    table_data = []
-    for word, count in sorted(word_counts.items(), key=lambda x: x[1], reverse=True):
-        translations = [translate_word(word, lang, count) for lang in ['english', 'italian']]
-        table_data.append([word, count, f'{(count / total_words) * 100:.2f}%', *translations])
-
-    table_headers = ['Word', 'Occurrences', 'Percentage', 'English Translation', 'Italian Translation']
-    table_str = tabulate.tabulate(table_data, headers=table_headers, tablefmt='grid')
-
     output_str = f"Total Characters: {len(text)}\n" \
-                 f"Total Words: {total_words}\n" \
-                 f"{table_str}"
+                 f"Total Words: {total_words}\n"
+
+    is_blue = True  # Set to True to make the first line blue
+    for word, count in sorted(word_counts.items(), key=lambda x: x[1], reverse=True):
+        english_translation, italian_translation = translate_word(word, 'english', count)
+        percentage = f'{(count / total_words) * 100:.2f}%'
+
+        if is_blue:
+            output_str += f"<span style='color: blue;'>{word} ({english_translation}, {italian_translation}) {count} {percentage}</span>\n"
+        else:
+            output_str += f"{word} ({english_translation}, {italian_translation}) {count} {percentage}\n"
+
+        is_blue = not is_blue  # Toggle the line color
 
     utils.io.write("out/word_frequencies.md", output_str, write_enabled=True)
 
