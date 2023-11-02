@@ -1,4 +1,4 @@
-pos_mapping = {
+part_of_speech = {
     "ADJ": ("Adjective", "purple"),
     "ADP": ("Preposition", "teal"),
     "ADV": ("Adverb", "orange"),
@@ -18,7 +18,7 @@ pos_mapping = {
     "X": ("Other", "black")
 }
 
-case_mapping = {
+declension = {
     "Nom": "Nominative",
     "Gen": "Genitive",
     "Dat": "Dative",
@@ -26,16 +26,16 @@ case_mapping = {
     "Abl": "Ablative",
     "Voc": "Vocative"
 }
-gender_mapping = {
+gender = {
     "Masc": "Masculine",
     "Fem": "Feminine",
     "Neut": "Neuter",
 }
-number_mapping = {
+number = {
     "Sing": "Singular",
     "Plur": "Plural"
 }
-tense_mapping = {
+verb_tense = {
     "Pres": "Present",
     "Past": "Past",
     "Fut": "Future",
@@ -62,7 +62,7 @@ tense_mapping = {
     "SubjPresPerfCont": "Subjunctive Present Perfect Continuous",
     "SubjPastPerfCont": "Subjunctive Past Perfect Continuous",
 }
-number_form_mapping = {
+verb_person = {
     "1s": "1st person singular",
     "2s": "2nd person singular",
     "3s": "3rd person singular",
