@@ -6,17 +6,13 @@ import mtranslate
 
 def translate_word(word, language, count):
     if count <= 50:
-        return "", ""
+        return ""
     elif language == 'english':
-        english_translation = mtranslate.translate(word, 'en', 'de').lower()
-        italian_translation = mtranslate.translate(word, 'it', 'de').lower()
-        return english_translation, italian_translation
+        return mtranslate.translate(word, 'en', 'de').lower()
     elif language == 'italian':
-        english_translation = mtranslate.translate(word, 'en', 'de').lower()
-        italian_translation = mtranslate.translate(word, 'it', 'de').lower()
-        return english_translation, italian_translation
+        return mtranslate.translate(word, 'it', 'de').lower()
     else:
-        return "", ""
+        return word
 
 
 def main():
@@ -29,13 +25,13 @@ def main():
 
     is_blue = True  # Set to True to make the first line blue
     for word, count in sorted(word_counts.items(), key=lambda x: x[1], reverse=True):
-        english_translation, italian_translation = translate_word(word, 'english', count)
+        translations = [translate_word(word, lang, count) for lang in ['english', 'italian']]
         percentage = f'{(count / total_words) * 100:.2f}%'
 
         if is_blue:
-            output_str += f"<span style='color: blue;'>{word} ({english_translation}, {italian_translation}) {count} {percentage}</span>\n"
+            output_str += f"<span style='color: blue;'>{word} {count} {percentage} {translations[0]} {translations[1]}</span>\n"
         else:
-            output_str += f"{word} ({english_translation}, {italian_translation}) {count} {percentage}\n"
+            output_str += f"{word} {count} {percentage} {translations[0]} {translations[1]}\n"
 
         is_blue = not is_blue  # Toggle the line color
 

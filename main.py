@@ -43,16 +43,29 @@ def get_word_details(translations):
                 f' {italian_translation.lower()})',
                 pos_info[1])
             )
-    return "\n".join(translated_details)
+    return "<br>\n".join(translated_details)
 
 
 def create_output_string(sentence):
     if sentence.startswith(' '):
         sentence = sentence.lstrip()
-    output_string = (f"\n{sentence}\n"
-                     f"{mtranslate.translate(sentence, 'en', 'de')}\n"
-                     f"{mtranslate.translate(sentence, 'it', 'de')}\n\n"
-                     f"{get_word_details(parse_german_text(sentence))}\n")
+    german_translation = mtranslate.translate(sentence, 'en', 'de')
+    italian_translation = mtranslate.translate(sentence, 'it', 'de')
+    output_string = (f'<div style="display: flex; justify-content: space-between; flex-wrap: wrap;">\n'
+                     f'    <div style="flex-basis: 48%;">\n'
+                     f'        {sentence}<br>\n'
+                     f'        <br>\n'
+                     f'        {german_translation}<br>\n'
+                     f'        <br>\n'
+                     f'        {italian_translation}<br>\n'
+                     f'    </div>\n'
+                     f'    <div style="flex-basis: 48%;">\n'
+                     f'        {get_word_details(parse_german_text(sentence))}\n'
+                     f'    </div>\n'
+                     f'</div>\n'
+                     f'<br />\n'
+                     f'<br />\n'
+                     f'\n')
     print(output_string)
     return output_string
 
