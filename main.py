@@ -10,8 +10,7 @@ def parse_german_text(text):
     return [(token.text,
              token.pos_,
              *{k: token.morph.get(k) for k in ["Case", "Gender", "Number", "Tense", "Person"]}.values(),
-             mtranslate.translate(token.text, 'en', 'de'),
-             mtranslate.translate(token.text, 'it', 'de'))
+             mtranslate.translate(token.text, 'en', 'de'))
             for token in nlp(text)]
 
 
@@ -21,7 +20,7 @@ def format_colored_text(text, color):
 
 def get_word_details(translations):
     translated_details = []
-    for word, pos, case, gender, number, tense, number_form, english_translation, italian_translation in translations:
+    for word, pos, case, gender, number, tense, number_form, english_translation in translations:
         if pos != "PUNCT":
             pos_info = utils.constants.part_of_speech.get(pos)
             grammatical_details = [pos_info[0]]
@@ -39,8 +38,7 @@ def get_word_details(translations):
             translated_details.append(format_colored_text(
                 f'{word}:'
                 f' {grammatical_details_str},'
-                f' ({english_translation.lower()},'
-                f' {italian_translation.lower()})',
+                f' {english_translation.lower()}',
                 pos_info[1])
             )
     return "<br>\n".join(translated_details)
@@ -49,15 +47,9 @@ def get_word_details(translations):
 def create_output_string(sentence):
     if sentence.startswith(' '):
         sentence = sentence.lstrip()
-    german_translation = mtranslate.translate(sentence, 'en', 'de')
-    italian_translation = mtranslate.translate(sentence, 'it', 'de')
     output_string = (f'<div style="display: flex; justify-content: space-between; flex-wrap: wrap;">\n'
                      f'    <div style="flex-basis: 48%;">\n'
                      f'        {sentence}<br>\n'
-                     f'        <br>\n'
-                     f'        {german_translation}<br>\n'
-                     f'        <br>\n'
-                     f'        {italian_translation}<br>\n'
                      f'    </div>\n'
                      f'    <div style="flex-basis: 48%;">\n'
                      f'        {get_word_details(parse_german_text(sentence))}\n'
