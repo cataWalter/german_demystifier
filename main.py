@@ -50,6 +50,7 @@ def create_output_string(sentence):
     output_string = (f'<div style="display: flex; justify-content: space-between; flex-wrap: wrap;">\n'
                      f'    <div style="flex-basis: 48%;">\n'
                      f'        {sentence}<br>\n'
+                     f'        <br>\n'
                      f'    </div>\n'
                      f'    <div style="flex-basis: 48%;">\n'
                      f'        {get_word_details(parse_german_text(sentence))}\n'
